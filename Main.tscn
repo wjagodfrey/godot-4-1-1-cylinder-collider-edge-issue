@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://p15vpns44s06"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_r1c8k"]
+[ext_resource type="PackedScene" uid="uid://dmhuir4u8y5qg" path="res://Cube-col.glb" id="2_kx4y1"]
+[ext_resource type="PackedScene" uid="uid://de5m3o3eun0gk" path="res://Cube-convcol.glb" id="3_1tgeg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ku5b"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_400xr"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fycyq"]
+transparency = 1
+albedo_color = Color(0.870588, 0.760784, 0.639216, 0.658824)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wtcl7"]
+material = SubResource("StandardMaterial3D_fycyq")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 1.8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2httw"]
+height = 1.8
+radius = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_shiho"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2f2lk"]
+
+[node name="Scene" type="Node"]
+
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_2ku5b")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_400xr")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_r1c8k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CylinderMesh_wtcl7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_2httw")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.10741)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.813844, 0.353616, -0.461101, -0.0485569, 0.832128, 0.552453, 0.579051, -0.427221, 0.694393, -6.60968, 4.06633, 1.89705)
+
+[node name="Cube-Imported-col" parent="." instance=ExtResource("2_kx4y1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82408, 0.498889, -2.08251)
+
+[node name="Cube-Imported-convcol" parent="." instance=ExtResource("3_1tgeg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.445345, 0.498889, -2.34751)
+
+[node name="Cube-BoxCollider" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.91943, 0.498889, -2.91558)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube-BoxCollider"]
+mesh = SubResource("BoxMesh_shiho")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Cube-BoxCollider"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube-BoxCollider/StaticBody3D"]
+shape = SubResource("BoxShape3D_2f2lk")
+
+[editable path="Cube-Imported-col"]
+[editable path="Cube-Imported-convcol"]
